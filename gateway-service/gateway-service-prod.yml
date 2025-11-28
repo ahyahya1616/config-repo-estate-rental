@@ -1,0 +1,9 @@
+spring:
+  profiles: prod
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    org.springframework.security: INFO
+    org.springframework.web.cors: INFO
+    root: INFO

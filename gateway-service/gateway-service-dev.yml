@@ -1,0 +1,9 @@
+spring:
+  profiles: dev
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web.cors: DEBUG
+    root: DEBUG

@@ -1,0 +1,22 @@
+spring:
+  profiles: prod
+  datasource:
+    url: ${PROD_DB_URL:jdbc:mysql://localhost:3306/userdb?createDatabaseIfNotExist=true&useSSL=false}
+    username: ${PROD_DB_USERNAME:root}
+    password: ${PROD_DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+
+logging:
+  level:
+    root: DEBUG
+    ma.fstt.usermanagement: DEBUG
+    org.springframework.web: DEBUG

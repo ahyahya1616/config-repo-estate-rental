@@ -1,0 +1,9 @@
+spring:
+  profiles: prod
+
+logging:
+  level:
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+    ma.fstt.authserver: INFO
+    feign: INFO

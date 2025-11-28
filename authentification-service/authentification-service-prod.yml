@@ -1,0 +1,13 @@
+spring:
+  profiles: prod
+
+
+logging:
+
+  level:
+    root: INFO
+    ma.fstt.authentificationservice: INFO
+    org.springframework.security: INFO
+    org.springframework.web: INFO
+
+

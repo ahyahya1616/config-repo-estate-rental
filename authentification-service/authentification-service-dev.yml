@@ -1,0 +1,12 @@
+spring:
+  profiles:dev
+
+
+logging:
+  level:
+    root: DEBUG
+    ma.fstt.authentificationservice: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+
+

@@ -1,0 +1,25 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: authentification-service
+
+app:
+  metamask:
+    signature-message-prefix: "Sign this message to authenticate: "
+
+  sas:
+    base-url: ${SAS_BASE_URL:http://localhost:9000}
+    token-endpoint: ${SAS_TOKEN_ENDPOINT:http://localhost:9000/oauth2/token}
+
+  oauth2:
+    client:
+      id: ${OAUTH_CLIENT_ID:authentification-service-client}
+      secret: ${OAUTH_CLIENT_SECRET:authentification-service-secret}
+
+feign:
+  client:
+    config:
+      user-management-service:
+
