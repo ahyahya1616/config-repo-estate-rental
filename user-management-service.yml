@@ -12,3 +12,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
 
+logging:
+  level:
+    root: INFO
+    ma.fstt.usermanagement: INFO
+    org.springframework.web: INFO

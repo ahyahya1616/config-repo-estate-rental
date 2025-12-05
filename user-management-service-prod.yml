@@ -17,8 +17,3 @@ spring:
 
 
 
-logging:
-  level:
-    root: DEBUG
-    ma.fstt.usermanagement: DEBUG
-    org.springframework.web: DEBUG

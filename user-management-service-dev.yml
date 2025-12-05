@@ -25,8 +25,4 @@ spring:
   sql:
     init:
       mode: always
-logging:
-  level:
-    root: DEBUG
-    ma.fstt.usermanagement: DEBUG
-    org.springframework.web: DEBUG
+
