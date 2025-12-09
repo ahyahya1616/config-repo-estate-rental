@@ -25,7 +25,8 @@ spring:
         - id: auth-server-public
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
           predicates:
-            - Path=/oauth2/**,/.well-known/**
+            - Path=/oauth2/**
+            - /.well-known/**
 
         - id: auth-service-public
           uri: lb://AUTHENTIFICATION-SERVICE
