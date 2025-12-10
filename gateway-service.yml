@@ -22,6 +22,36 @@ spring:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
 
       routes:
+        - id: auth-nonce-route
+          uri: ${AUTH_SERVER_URL:http://localhost:9000}
+          predicates:
+            - Path=/api/auth/metamask/nonce
+            - Method=GET
+          filters:
+            - name: StripPrefix
+              args:
+                parts: 0
+
+        - id: auth-login-route
+          uri: ${AUTH_SERVER_URL:http://localhost:9000}
+          predicates:
+            - Path=/api/auth/metamask/login
+            - Method=POST
+          filters:
+            - name: StripPrefix
+              args:
+                parts: 0
+
+        - id: auth-refresh-route
+          uri: ${AUTH_SERVER_URL:http://localhost:9000}
+          predicates:
+            - Path=/api/auth/metamask/refresh
+            - Method=POST
+          filters:
+            - name: StripPrefix
+              args:
+                parts: 0
+
         - id: auth-server-public
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
           predicates:
@@ -40,7 +70,6 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
 
-
         - id: user-service
           uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
           predicates:
@@ -49,7 +78,7 @@ spring:
         - id: RentalAgreement-microservice
           uri: ${RENTAL-AGREEMENT-URL:http://localhost:8083}
           predicates:
-             - Path=/api/v1/**
+            - Path=/api/v1/**
 
         - id: property-microservice
           uri: ${PROPERTY-MICROSERVICE-URL:http://localhost:8084}
