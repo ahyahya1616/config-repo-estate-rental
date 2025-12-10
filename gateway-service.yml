@@ -44,8 +44,6 @@ spring:
           uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
           predicates:
             - Path=/api/users/**
-          filters:
-            - TokenRelay=
 
         - id: RentalAgreement-microservice
           uri: ${RENTAL-AGREEMENT-URL:http://localhost:8083}
