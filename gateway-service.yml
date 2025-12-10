@@ -50,7 +50,7 @@ spring:
         - id: auth-server-public
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
           predicates:
-            - Path=/oauth2/**
+            - Path=/oauth2/**,/.well-known/**
 
         # ------------------------ USER SERVICE ROUTES ------------------------
         - id: user-register
@@ -60,17 +60,28 @@ spring:
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
-            - TokenRelay
 
-        - id: user-service
+        - id: user-wallet-public
           uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
           predicates:
-            - Path=/api/users/**,/api/users
+            - Path=/api/users/wallet/**
+            - Method=GET
+
+        - id: user-list-public
+          uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
+          predicates:
+            - Path=/api/users
+            - Method=GET
+
+        - id: user-service-protected
+          uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
+          predicates:
+            - Path=/api/users/**
           filters:
             - TokenRelay
 
         # ------------------------ RENTAL AGREEMENT ------------------------
-        - id: RentalAgreement-microservice
+        - id: rental-agreement-microservice
           uri: ${RENTAL-AGREEMENT-URL:http://localhost:8083}
           predicates:
             - Path=/api/rentalAgreement-microservice/**
@@ -78,7 +89,13 @@ spring:
             - TokenRelay
 
         # ------------------------ PROPERTY MICROSERVICE ------------------------
-        - id: property-microservice
+        - id: property-microservice-get-public
+          uri: ${PROPERTY-MICROSERVICE-URL:http://localhost:8084}
+          predicates:
+            - Path=/api/property-microservice/**
+            - Method=GET
+
+        - id: property-microservice-protected
           uri: ${PROPERTY-MICROSERVICE-URL:http://localhost:8084}
           predicates:
             - Path=/api/property-microservice/**
@@ -113,56 +130,3 @@ logging:
     org.springframework.cloud.gateway: DEBUG
     org.springframework.security: DEBUG
     org.springframework.web.cors: DEBUG
-    root: DEBUG
-
-# ==================================================================
-#                    SPRING SECURITY ACCESS RULES
-# ==================================================================
-security:
-  filter:
-    chains:
-
-      # ------ PUBLIC GET ROUTES FOR PROPERTY MICROSERVICE ------
-      - pattern: /api/property-microservice/properties/**
-        http:
-          securityMatcher: /api/property-microservice/properties/**
-          authorizeHttpRequests:
-            - pattern: /api/property-microservice/properties/**
-              methods: GET
-              access: permitAll
-          oauth2:
-            resourceServer:
-              jwt: {}
-
-      - pattern: /api/property-microservice/rooms/**
-        http:
-          securityMatcher: /api/property-microservice/rooms/**
-          authorizeHttpRequests:
-            - pattern: /api/property-microservice/rooms/**
-              methods: GET
-              access: permitAll
-          oauth2:
-            resourceServer:
-              jwt: {}
-
-      - pattern: /api/property-microservice/properties/room-images/**
-        http:
-          securityMatcher: /api/property-microservice/properties/room-images/**
-          authorizeHttpRequests:
-            - pattern: /api/property-microservice/properties/room-images/**
-              methods: GET
-              access: permitAll
-          oauth2:
-            resourceServer:
-              jwt: {}
-
-      # ------ DEFAULT RULE : TOUT LE RESTE REQUIERT JWT ------
-      - pattern: /**
-        http:
-          securityMatcher: /**
-          authorizeHttpRequests:
-            - pattern: /**
-              access: isAuthenticated
-          oauth2:
-            resourceServer:
-              jwt: {}
