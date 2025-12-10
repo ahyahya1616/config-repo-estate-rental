@@ -57,10 +57,6 @@ spring:
           predicates:
             - Path=/oauth2/**
 
-        - id: auth-service-public
-          uri: ${AUTHENTIFICATION-SERVICE-URL:http://localhost:8082}
-          predicates:
-            - Path=/api/auth/**
 
         - id: user-register
           uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
