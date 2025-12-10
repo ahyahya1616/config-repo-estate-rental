@@ -2,10 +2,6 @@ spring:
   application:
     name: auth-server
 
-  cloud:
-    discovery:
-      enabled: true
-
   security:
     oauth2:
       authorizationserver:
@@ -29,3 +25,6 @@ app:
   metamask:
     nonce-expiration-minutes: 5
     signature-message-prefix: "Sign this message to authenticate: "
+
+user:
+  uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}

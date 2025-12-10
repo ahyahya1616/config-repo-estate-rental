@@ -22,15 +22,14 @@ spring:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
 
       routes:
+        # ------------------------ AUTH SERVER ROUTES ------------------------
         - id: auth-nonce-route
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
           predicates:
             - Path=/api/auth/metamask/nonce
             - Method=GET
           filters:
-            - name: StripPrefix
-              args:
-                parts: 0
+            - StripPrefix=0
 
         - id: auth-login-route
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
@@ -38,9 +37,7 @@ spring:
             - Path=/api/auth/metamask/login
             - Method=POST
           filters:
-            - name: StripPrefix
-              args:
-                parts: 0
+            - StripPrefix=0
 
         - id: auth-refresh-route
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
@@ -48,16 +45,14 @@ spring:
             - Path=/api/auth/metamask/refresh
             - Method=POST
           filters:
-            - name: StripPrefix
-              args:
-                parts: 0
+            - StripPrefix=0
 
         - id: auth-server-public
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
           predicates:
             - Path=/oauth2/**
 
-
+        # ------------------------ USER SERVICE ROUTES ------------------------
         - id: user-register
           uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
           predicates:
@@ -65,22 +60,32 @@ spring:
             - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
+            - TokenRelay
 
         - id: user-service
           uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
           predicates:
             - Path=/api/users/**,/api/users
+          filters:
+            - TokenRelay
 
+        # ------------------------ RENTAL AGREEMENT ------------------------
         - id: RentalAgreement-microservice
           uri: ${RENTAL-AGREEMENT-URL:http://localhost:8083}
           predicates:
-            - Path=/api/v1/**
+            - Path=/api/rentalAgreement-microservice/**
+          filters:
+            - TokenRelay
 
+        # ------------------------ PROPERTY MICROSERVICE ------------------------
         - id: property-microservice
           uri: ${PROPERTY-MICROSERVICE-URL:http://localhost:8084}
           predicates:
-            - Path=/api/properties
+            - Path=/api/property-microservice/**
+          filters:
+            - TokenRelay
 
+      # ------------------------ CORS ------------------------
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
@@ -109,3 +114,55 @@ logging:
     org.springframework.security: DEBUG
     org.springframework.web.cors: DEBUG
     root: DEBUG
+
+# ==================================================================
+#                    SPRING SECURITY ACCESS RULES
+# ==================================================================
+security:
+  filter:
+    chains:
+
+      # ------ PUBLIC GET ROUTES FOR PROPERTY MICROSERVICE ------
+      - pattern: /api/property-microservice/properties/**
+        http:
+          securityMatcher: /api/property-microservice/properties/**
+          authorizeHttpRequests:
+            - pattern: /api/property-microservice/properties/**
+              methods: GET
+              access: permitAll
+          oauth2:
+            resourceServer:
+              jwt: {}
+
+      - pattern: /api/property-microservice/rooms/**
+        http:
+          securityMatcher: /api/property-microservice/rooms/**
+          authorizeHttpRequests:
+            - pattern: /api/property-microservice/rooms/**
+              methods: GET
+              access: permitAll
+          oauth2:
+            resourceServer:
+              jwt: {}
+
+      - pattern: /api/property-microservice/properties/room-images/**
+        http:
+          securityMatcher: /api/property-microservice/properties/room-images/**
+          authorizeHttpRequests:
+            - pattern: /api/property-microservice/properties/room-images/**
+              methods: GET
+              access: permitAll
+          oauth2:
+            resourceServer:
+              jwt: {}
+
+      # ------ DEFAULT RULE : TOUT LE RESTE REQUIERT JWT ------
+      - pattern: /**
+        http:
+          securityMatcher: /**
+          authorizeHttpRequests:
+            - pattern: /**
+              access: isAuthenticated
+          oauth2:
+            resourceServer:
+              jwt: {}
