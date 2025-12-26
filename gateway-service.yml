@@ -79,7 +79,7 @@ spring:
             - Path=/api/users
             - Method=GET
           filters:
-              - TokenRelay
+            - TokenRelay
 
             # Protected: update user
         - id: user-update-protected

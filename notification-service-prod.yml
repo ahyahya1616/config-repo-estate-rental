@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: ${PROD_DB_NOTIFICATION_URL:jdbc:mysql://localhost:3306/notifications}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${PROD_DB_USERNAME:root}
+    password: ${PROD_DB_PASSWORD:password}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect

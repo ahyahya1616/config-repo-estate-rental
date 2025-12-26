@@ -1,0 +1,25 @@
+spring:
+  name: notification-service
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP:notification-service-group}
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    topics:
+      notification: ${KAFKA_NOTIFICATION_TOPIC:notification-events}
+
+dlq:
+  max-retries: ${DLQ_MAX_RETRIES:5}
+  retry-interval: ${DLQ_RETRY_INTERVAL:300000} # en ms
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicExtractor: TRACE
