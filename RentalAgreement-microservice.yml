@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: RentalAgreement-microservice
+
+
+# Configuration Web3j / Blockchain
+web3j:
+  client-address: ${WEB3J_CLIENT_ADDRESS:http://localhost:8545}
+
+contract:
+  rental:
+    address: ${CONTRACT_RENTAL_ADDRESS:0x5FbDB2315678afecb367f032d93F642f64180aa3}
+
+wallet:
+  private-key: ${WALLET_PRIVATE_KEY:0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d}
+
+# Logging
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    feign: DEBUG
+    # Remplace par ton package exact pour voir les logs Feign
+    com.lsiproject.app.rentalagreementmicroservicev2.openFeignClients: DEBUG
