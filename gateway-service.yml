@@ -121,12 +121,19 @@ spring:
           filters:
             - TokenRelay
 
+        # Notifications
         - id: notification-microservice
-          uri: ${NOTIFCATION-MICROSERVICE-URL:http://localhost:8085}
+          uri: ${NOTIFICATION_MICROSERVICE_URL/ws-notifications}
           predicates:
             - Path=/api/notifications/**
           filters:
             - TokenRelay
+
+            # WebSocket Notifications
+        - id: notification-ws
+          uri: ws://localhost:8085
+          predicates:
+            - Path=/ws-notifications/**
       # ------------------------ CORS ------------------------
       globalcors:
         add-to-simple-url-handler-mapping: true
