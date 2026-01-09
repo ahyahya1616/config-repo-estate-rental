@@ -44,6 +44,6 @@ supabase:
     bucket-name: property-images-bucket
 
 
-PropertyRecommendationModel:
-  service:
+microservice:
+  recommendation-ai:
     url: http://localhost:8001
