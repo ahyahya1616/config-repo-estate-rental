@@ -42,3 +42,8 @@ supabase:
   service_key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind6cW5sY21tcXFmcWlzcXJzaGtwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2Mzg1NTY5NCwiZXhwIjoyMDc5NDMxNjk0fQ.ddljPbgZk_pw9W99D8cJq94Nby_qKtj7b39zkpEU13U
   storage:
     bucket-name: property-images-bucket
+
+
+PropertyRecommendationModel:
+  service:
+    url: localhost:8001
