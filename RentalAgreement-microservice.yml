@@ -22,6 +22,10 @@ property:
   service:
     url: ${PROPERTY_SERVICE_URL:http://localhost:8084}
 
+tenantScoringAiModel:
+  service:
+    url: localhost:8080
+
 # Logging
 logging:
   level:
