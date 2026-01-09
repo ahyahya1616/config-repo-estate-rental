@@ -46,4 +46,4 @@ supabase:
 
 PropertyRecommendationModel:
   service:
-    url: http://localhost:8001
+    url: localhost:8001
