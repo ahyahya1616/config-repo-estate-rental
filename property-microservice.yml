@@ -50,6 +50,9 @@ microservice:
 heatmap:
   service:
     url: ${HEATMAP_SERVICE_URL:http://localhost:8002}
+ml-price-suggestion:
+  service:
+    url: ${ML_PRICE_SUGGESTION_URL:http://localhost:8003}
 
 userManagement:
   service:
