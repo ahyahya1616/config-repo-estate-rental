@@ -17,3 +17,4 @@ logging:
     root: INFO
     ma.fstt.usermanagement: INFO
     org.springframework.web: INFO
+
