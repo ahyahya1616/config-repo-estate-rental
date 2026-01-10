@@ -30,10 +30,7 @@ spring:
             - Method=GET
           filters:
             - StripPrefix=0
-            - name: CircuitBreaker
-              args:
-                name: authService
-                fallbackUri: forward:/fallback/auth
+
 
         - id: auth-login-route
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
@@ -42,10 +39,7 @@ spring:
             - Method=POST
           filters:
             - StripPrefix=0
-            - name: CircuitBreaker
-              args:
-                name: authService
-                fallbackUri: forward:/fallback/auth
+
 
 
         - id: auth-refresh-route
@@ -55,20 +49,13 @@ spring:
             - Method=POST
           filters:
             - StripPrefix=0
-            - name: CircuitBreaker
-              args:
-                name: authService
-                fallbackUri: forward:/fallback/auth
+
 
         - id: auth-server-public
           uri: ${AUTH_SERVER_URL:http://localhost:9000}
           predicates:
             - Path=/oauth2/**,/.well-known/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                  name: authService
-                  fallbackUri: forward:/fallback/auth
+
 
         # ------------------------ USER SERVICE ROUTES ------------------------
         - id: user-register
