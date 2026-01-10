@@ -38,7 +38,7 @@ resilience4j:
 
 tenantScoringAiModel:
   service:
-    url: ${TENANT_SCORING_IA_MODEL_URL:localhost:8080}
+    url: ${TENANT_SCORING_IA_MODEL_URL:http://localhost:8080}
 
 # Logging
 logging:
