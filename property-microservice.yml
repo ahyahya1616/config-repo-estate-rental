@@ -46,7 +46,7 @@ supabase:
 
 microservice:
   recommendation-ai:
-    url: http://localhost:8001
+    url: ${RECOMENDATION_IA_URL:http://localhost:8001}
 heatmap:
   service:
     url: ${HEATMAP_SERVICE_URL:http://localhost:8002}
