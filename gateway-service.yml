@@ -143,7 +143,7 @@ spring:
         - id: user-get-by-id
           uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
           predicates:
-            - Path=/api/users/{id}
+            - Path=/api/users/id/{id}
             - Method=GET
           filters:
             - TokenRelay
