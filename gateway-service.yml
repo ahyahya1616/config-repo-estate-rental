@@ -140,6 +140,19 @@ spring:
                 name: userService
                 fallbackUri: forward:/fallback/user
 
+        - id: user-get-by-id
+          uri: ${USER-MANAGEMENT-SERVICE-URL:http://localhost:8081}
+          predicates:
+            - Path=/api/users/{id}
+            - Method=GET
+          filters:
+            - TokenRelay
+            - name: CircuitBreaker
+              args:
+                name: userService
+                fallbackUri: forward:/fallback/user
+
+
         # ------------------------ RENTAL AGREEMENT ------------------------
         - id: rental-agreement-microservice
           uri: ${RENTAL-AGREEMENT-URL:http://localhost:8083}
